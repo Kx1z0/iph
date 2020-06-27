@@ -1,0 +1,42 @@
+#!/bin/bash
+
+ip=$(ifconfig | grep "inet" | cut -d " " -f10 | grep -Ev "[:a-zA-Z]" | grep -v 127 )
+lineas=$(ifconfig | grep "inet" | cut -d " " -f10 | grep -Ev "[:a-zA-Z]" | grep -v 127 | wc -l)
+cont=1
+
+function main() {
+
+c=$(while [ "$cont" -le "$lineas" ]; do
+
+for i in $(echo "$ip"); do 
+echo "$cont)" $i
+let cont=$cont+1
+done
+done)
+
+echo "$c"
+
+}
+
+if [ "$#" == "0" ]; then
+
+main
+
+fi
+
+if [ "$1" == "-c" ]; then
+
+c=$(while [ "$cont" -le "$lineas" ]; do
+
+for i in $(echo "$ip"); do 
+echo "$cont)" $i
+let cont=$cont+1
+done
+done)
+
+echo "$c"
+read -p "IP a copiar: "  me
+d=$(echo "$c" | grep "$me)")
+echo "$d" | cut -d " " -f2 | xclip -sel clip
+
+fi
