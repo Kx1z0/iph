@@ -37,6 +37,6 @@ done)
 echo "$c"
 read -p "IP a copiar: "  me
 d=$(echo "$c" | grep "$me)")
-echo "$d" | cut -d " " -f2 | xclip -sel clip
+echo "$d" | cut -z -d " " -f2 | xclip -sel clip
 
 fi
